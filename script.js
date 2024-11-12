@@ -129,10 +129,49 @@ function numberToAbjad(number) {
     return kamus[number.toString()][0];
 }
 
+function convertBackModifyToNumber() {
+    const inputText = document.getElementById("outputConvertBack").innerText;
+    let outputNumber = "";
+
+    let inputArray = inputText.split(" ");
+    for (let char of inputArray) {
+        let found = false;
+        console.log(char);
+        for (let key in kamus) {
+            if (kamus[key].includes(char)) {
+                outputNumber += key + " ";
+                found = true;
+                break;
+            }
+        }
+   
+        if (!found) {
+            outputNumber += "";
+        }
+    }
+
+    outputNumber = outputNumber.trim();
+    let arrayOutput = outputNumber.split(" ");
+    let arrayOutputModify = [];
+
+    for (let i = 0; i < arrayOutput.length; i++) {
+        if (parseInt(arrayOutput[i]) % 2 == 0 || parseInt(arrayOutput[i] == 0)) {
+            arrayOutputModify.push(parseInt(arrayOutput[i]) + 1);
+        }
+        else {
+            arrayOutputModify.push(parseInt(arrayOutput[i]));
+        }
+    }
+
+    document.getElementById("outputConvertBackModifyToNumber").innerText = arrayOutputModify.join(" ");
+    
+}
+
 
 function dictionaryTest() {
     convertText();
     calculateConvertText();
     convertToAbjad();
     convertBack();
+    convertBackModifyToNumber();
 }
